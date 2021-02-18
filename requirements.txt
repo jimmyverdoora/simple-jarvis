@@ -1,0 +1,6 @@
+wheel
+requests
+pyaudio
+speechrecognition
+pyttsx3
+wikipedia
