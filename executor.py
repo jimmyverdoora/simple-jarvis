@@ -18,7 +18,7 @@ def wiki(spl):
   page = wikipedia.page(results[0])
   return page.content.split("==")[0]
 
-def alarm(spl, engine):
+def alarm(spl, speak):
   # 2 cases: given interval or given time
   if len(spl) < 2:
     return "Cosa devo impostare?"
@@ -101,13 +101,12 @@ def alarm(spl, engine):
     whatToSay += "le ricordo di " + " ".join(spl)
   else:
     whatToSay += "sono passati " + str(numInSec) + " secondi"
-  return _setAlarm(numInSec, whatToSay, engine)
+  return _setAlarm(numInSec, whatToSay, speak)
 
-def _setAlarm(timeInSec, whatToSay, engine):
+def _setAlarm(timeInSec, whatToSay, speak):
   def foo():
     time.sleep(timeInSec)
-    engine.say(whatToSay)
-    engine.runAndWait()
+    speak(whatToSay)
   thr = threading.Thread(target=foo, args=(), kwargs={})
   thr.start()
   print("alarm set in " + str(timeInSec) + "seconds")

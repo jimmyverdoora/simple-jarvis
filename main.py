@@ -1,18 +1,12 @@
 import speech_recognition as sr
-import pyttsx3
 import requests
 import random
+from gtts import gTTS
+from io import BytesIO
+from playsound import playsound
 
 from dizio import DIZIO
 from executor import wiki, alarm
-
-engine = pyttsx3.init()
-engine.setProperty('rate', 180)
-voices = engine.getProperty('voices')
-for voice in voices:
-  if ("italian" in voice.id):
-    engine.setProperty('voice', voice.id)
-    break
 
 def listen():
   r=sr.Recognizer()
@@ -28,8 +22,10 @@ def listen():
     return statement
 
 def speak(string):
-  engine.say(string)
-  engine.runAndWait()
+  tts = gTTS(string, lang='it')
+  with open('tmp.mp3', 'wb') as f:
+    tts.write_to_fp(f)
+  playsound("./tmp.mp3")
 
 def pick(string):
   return random.choice(DIZIO[string])
@@ -41,7 +37,7 @@ def process(command):
   elif spl[0] == "grazie" or (len(spl) > 1 and spl[0] == "ti" and spl[1] == "ringrazio"):
     return speak(pick("prego"))
   elif spl[0] == "metti" or spl[0] == "imposta" or spl[0] == "setta":
-    return speak(alarm(spl, engine))
+    return speak(alarm(spl, speak))
   elif spl[0] == "spegniti" or spl[0] == "buonanotte":
     speak(pick("buonanotte"))
     return # todo: shutdown
