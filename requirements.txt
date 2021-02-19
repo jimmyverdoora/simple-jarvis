@@ -1,6 +1,7 @@
 wheel
 requests
 pyaudio
+playaudio
 gTTS
 speechrecognition
 pyttsx3
