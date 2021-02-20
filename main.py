@@ -4,28 +4,36 @@ import random
 from gtts import gTTS
 from io import BytesIO
 import os
+import wave
+
+FOLDER = "/home/jimmy/Work/other/jarvis/"
 
 from dizio import DIZIO
 from executor import wiki, alarm
 
 def listen():
   r=sr.Recognizer()
-  r.dynamic_energy_threshold = False
-  r.energy_threshold = 300
-  with sr.Microphone() as source:    
+  os.system("/usr/bin/rec " + FOLDER + "tmp.wav trim 0:0 0:10 silence -l 0 1 2.0 0.5%")
+  statement = None
+  with wave.open(FOLDER + "tmp.wav", "rb") as source:    
     try:
-      audio=r.listen(source, timeout=10.0)
+      rate = source.getframerate()
+      width = source.getsampwidth()
+      n = source.getnframes()
+      data = source.readframes(n)
+      audio = sr.AudioData(data, rate, width*2)
       statement=r.recognize_google(audio, language='it-it')
       print(statement)
     except Exception as e:
+      print(e)
       return None
-    return statement
+  return statement
 
 def speak(string):
   tts = gTTS(string, lang='it')
-  with open('tmp.mp3', 'wb') as f:
+  with open(FOLDER + 'tmp.mp3', 'wb') as f:
     tts.write_to_fp(f)
-  os.system("/usr/bin/mpg321 /home/pi/simple-jarvis/tmp.mp3")
+  os.system("/usr/bin/mpg321 " + FOLDER + "tmp.mp3")
 
 def pick(string):
   return random.choice(DIZIO[string])
