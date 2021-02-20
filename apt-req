@@ -1,1 +1,1 @@
-python3-dev portaudio19-dev python3-pyaudio libespeak-ng-libespeak-dev espeak libespeak-dev gstreamer-1.0
+python3-dev portaudio19-dev python3-pyaudio espeak gstreamer-1.0 python3-gi

@@ -6,3 +6,4 @@ gTTS
 speechrecognition
 pyttsx3
 wikipedia
+vext.gi

@@ -3,7 +3,7 @@ import requests
 import random
 from gtts import gTTS
 from io import BytesIO
-from playsound import playsound
+import os
 
 from dizio import DIZIO
 from executor import wiki, alarm
@@ -25,7 +25,7 @@ def speak(string):
   tts = gTTS(string, lang='it')
   with open('tmp.mp3', 'wb') as f:
     tts.write_to_fp(f)
-  playsound("./tmp.mp3")
+  os.system("/usr/bin/mpg321 /home/pi/simple-jarvis/tmp.mp3")
 
 def pick(string):
   return random.choice(DIZIO[string])
