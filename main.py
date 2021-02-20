@@ -6,14 +6,13 @@ from io import BytesIO
 import os
 import wave
 
-FOLDER = "/home/jimmy/Work/other/jarvis/"
-
 from dizio import DIZIO
+from env import FOLDER, TH
 from executor import wiki, alarm
 
 def listen():
   r=sr.Recognizer()
-  os.system("/usr/bin/rec " + FOLDER + "tmp.wav trim 0:0 0:10 silence -l 0 1 2.0 0.5%")
+  os.system("/usr/bin/rec " + FOLDER + "tmp.wav trim 0:0 0:10 silence -l 0 1 2.0 " + TH)
   statement = None
   with wave.open(FOLDER + "tmp.wav", "rb") as source:    
     try:
@@ -48,7 +47,7 @@ def process(command):
     return speak(alarm(spl, speak))
   elif spl[0] == "spegniti" or spl[0] == "buonanotte":
     speak(pick("buonanotte"))
-    return # todo: shutdown
+    return os.system("sudo shutdown -h now")
   else:
     speak(pick("ripeti"))
   return
