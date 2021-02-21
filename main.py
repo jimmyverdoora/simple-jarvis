@@ -5,6 +5,7 @@ from gtts import gTTS
 from io import BytesIO
 import os
 import wave
+import time
 
 from dizio import DIZIO
 from env import FOLDER, THRESHOLD
