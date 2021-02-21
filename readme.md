@@ -15,5 +15,7 @@ Perché VA italiani open source non ne ho trovati
 
 ## Donazioni
 Perché i dev in Italia sono poveri
+
 EGLD: @gauss su Maiar
+
 BTC: 3HsAz3tnYEGCaWGY6968SbQT7JkFHMuiC4
