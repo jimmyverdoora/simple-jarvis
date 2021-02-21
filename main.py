@@ -7,12 +7,12 @@ import os
 import wave
 
 from dizio import DIZIO
-from env import FOLDER, TH
+from env import FOLDER, THRESHOLD
 from executor import wiki, alarm, ore, meteo
 
 def listen():
   r=sr.Recognizer()
-  os.system("/usr/bin/rec " + FOLDER + "tmp.wav trim 0:0 0:10 silence -l 0 1 1.5 " + TH)
+  os.system("/usr/bin/rec " + FOLDER + "tmp.wav trim 0:0 0:10 silence -l 0 1 1.5 " + THRESHOLD)
   statement = None
   with wave.open(FOLDER + "tmp.wav", "rb") as source:    
     try:
