@@ -3,6 +3,10 @@ import datetime
 import threading
 import time
 
+mesi = {"gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4, "maggio": 5,
+  "giugno": 6, "luglio": 7, "agosto": 8, "settembre": 9, "ottobre": 10,
+  "novembre": 11, "dicembre": 12}
+
 def wiki(spl):
   wikipedia.set_lang("it")
   if spl[-1] == "google" or spl[-1] == "wikipedia":
@@ -17,6 +21,21 @@ def wiki(spl):
     return "Mi spiace, non ho trovato risultati"
   page = wikipedia.page(results[0])
   return page.content.split("==")[0]
+
+def ore():
+  t = datetime.datetime.now()
+  return "Sono le " + t.strftime("%H:%M")
+
+def meteo(spl, speak):
+  res = None
+  if spl[-1] == "oggi":
+    res = datetime.datetime.now().strftime()
+  elif spl[-1] == "domani":
+    pass
+  elif spl[-1] in mesi.keys():
+    pass
+  else: # assuming number
+    pass
 
 def alarm(spl, speak):
   # 2 cases: given interval or given time

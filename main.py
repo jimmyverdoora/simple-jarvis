@@ -8,11 +8,11 @@ import wave
 
 from dizio import DIZIO
 from env import FOLDER, TH
-from executor import wiki, alarm
+from executor import wiki, alarm, ore, meteo
 
 def listen():
   r=sr.Recognizer()
-  os.system("/usr/bin/rec " + FOLDER + "tmp.wav trim 0:0 0:10 silence -l 0 1 2.0 " + TH)
+  os.system("/usr/bin/rec " + FOLDER + "tmp.wav trim 0:0 0:10 silence -l 0 1 1.5 " + TH)
   statement = None
   with wave.open(FOLDER + "tmp.wav", "rb") as source:    
     try:
@@ -39,7 +39,11 @@ def pick(string):
 
 def process(command):
   spl = command.split()
-  if spl[0] == "cerca" or spl[0] == "cercami":
+  if "che ore sono" in " ".join(spl).lower():
+    return speak(ore())
+  elif "meteo" in spl:
+    return speak("mi spiace questa feature è ancora in fase di sviluppo")
+  elif spl[0] == "cerca" or spl[0] == "cercami":
     return speak(wiki(spl))
   elif spl[0] == "grazie" or (len(spl) > 1 and spl[0] == "ti" and spl[1] == "ringrazio"):
     return speak(pick("prego"))
