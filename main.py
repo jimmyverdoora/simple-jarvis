@@ -58,6 +58,8 @@ def process(command):
 
 if __name__=='__main__':
 
+  time.sleep(10)
+
   try:
     speak(pick("greetings"))
     isTriggered = False # quando lo chiami per nome lo attivi
