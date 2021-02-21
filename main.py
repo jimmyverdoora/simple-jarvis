@@ -58,20 +58,25 @@ def process(command):
 
 if __name__=='__main__':
 
-  speak(pick("greetings"))
-  isTriggered = False # quando lo chiami per nome lo attivi
+  try:
+    speak(pick("greetings"))
+    isTriggered = False # quando lo chiami per nome lo attivi
 
-  while True:
-    print(isTriggered)
-    statement = listen()
-    if statement is not None:
-      if "jarvis" in statement.lower().split(" "):
-        if not isTriggered:
-          speak(pick("dimmi"))
-          isTriggered = True
+    while True:
+      print(isTriggered)
+      statement = listen()
+      if statement is not None:
+        if "jarvis" in statement.lower().split(" "):
+          if not isTriggered:
+            speak(pick("dimmi"))
+            isTriggered = True
+          elif isTriggered:
+            process(statement.lower())
         elif isTriggered:
           process(statement.lower())
-      elif isTriggered:
-        process(statement.lower())
-    else:
-      isTriggered = False
+      else:
+        isTriggered = False
+  except Exception:
+    import traceback
+    with open("log.txt", "w") as log:
+      log.write(traceback.format_exc())
